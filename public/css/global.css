@@ -1,0 +1,115 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  background: #737373;
+}
+
+.CodeMirror {
+  position: fixed;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
+  -moz-box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
+  box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
+}
+
+.cm-s-base16-light {
+  height: 90% !important;
+  float: left;
+  height: 75%;
+  margin-bottom: 35px;
+  bottom: 60px;
+  top: 10px;
+}
+
+#save-button {
+  position: fixed;
+  right: 30.6%;
+  bottom: 65px;
+}
+
+.cm-s-base16-dark {
+  height: 25px !important;
+  bottom: 2.5% !important;
+  top: inherit;
+}
+
+.cm-s-base16-dark .CodeMirror-lines {
+  cursor: default;
+}
+
+.button, .text-input{
+  border: 0 none;
+  border-radius: 2px 2px 2px 2px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial,sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 7px 10px;
+  text-transform: none;
+  transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  width: 200px;
+  text-align: center;
+  opacity: 0.78;
+}
+
+.button {
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
+}
+
+.text-input {
+  color: #666;
+  cursor: text;
+}
+
+.button.save {
+  background: none repeat scroll 0 0 #e0645c;
+  color: white;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+.button.saved {
+  background: none repeat scroll 0 0 #999999;
+  color: white;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+#number {
+  display: none;
+}
+
+#login {
+  position: fixed;
+  top: 10%;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  text-align: center;
+}
+
+#login ul {
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+#logout {
+  position: fixed;
+  right: 10px;
+  top: 0px;
+}
