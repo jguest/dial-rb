@@ -1,9 +1,6 @@
 #login
+  %span{:id => "title"} dial-rb
   %form{:action => "set-number", :method => "post"}
-    %ul
-      %li
-        enter your phone number to enable SMS
-      %li
-        %input{:id => "number-input", :class => "text-input", :type => "text", :name => "number", :value => "+1"}
-        %input{:class => "button", :type => "submit", :value => "login"}
+    %input{:id => "number-input", :class => "text-input", :name => "number", :value => "+1"}
+    %input{:class => "button", :type => "submit", :value => "login"}
 %script{:src => '/js/login.js', :type => 'text/javascript'}
