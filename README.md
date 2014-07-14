@@ -6,7 +6,7 @@
 * there needs to be some massive cleanup/organization.
 * Session might not be such a good class name due to sinatra sessions
 
-**TODO j**
+**TODO js**
 * evaluate function should have some line(s) changes to indicate eval
 * vim mode should be an option, I guess...
 * cleanup the keydown function. Those conditionals are nasty.
