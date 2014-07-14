@@ -42,15 +42,23 @@ post '/save' do
 end
 
 get '/login' do
+    @number = session[:number]
     haml :login
+end
+
+post '/authenticate' do
+    # DO STUFF TOMORROW
+    # random word auth
+    redirect to('/')
 end
 
 post '/set-number' do
     session[:number] = params[:number]
-    redirect to('/')
+    redirect to('/login')
 end
 
 post '/unset-number' do
     session[:number] = nil
-    redirect to('/login')
+    content_type :json
+    {:url => "/login"}.to_json
 end

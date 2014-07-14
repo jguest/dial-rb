@@ -7,49 +7,48 @@ html {
 body {
   margin: 0;
   height: 100%;
-  background: #737373;
+  background: #fdf6e3;
   font-family: Arial,sans-serif;
   color: #333;
 }
 
 .CodeMirror {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+.cm-s-solarized {
   position: fixed;
-  left: 30%;
-  right: 30%;
-  width: 40%;
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
-  -moz-box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
-  box-shadow: 10px 10px 5px 0px rgba(33,31,33,1) !important;
+  height: 96%;
+  width: 70%;
+  top: 15px;
+  left: 100px;
 }
 
-.cm-s-base16-light {
-  height: 90% !important;
-  float: left;
-  height: 75%;
-  margin-bottom: 35px;
-  bottom: 60px;
-  top: 10px;
+.cm-s-xq-light {
+  background: transparent !important;
+  width: 300px;
+  height: 171px;
 }
 
-#save-button {
-  position: fixed;
-  right: 30.6%;
-  bottom: 65px;
+.cm-s-xq-light .CodeMirror-code {
+  max-width: 300px;
 }
 
-.cm-s-base16-dark {
-  height: 25px !important;
-  bottom: 2.5% !important;
-  top: inherit;
+.cm-s-xq-light .CodeMirror-code pre {
+  word-break: break-word;
+}
+
+.CodeMirror-vscrollbar {
+  display: none !important;
 }
 
 .cm-s-base16-dark .CodeMirror-lines {
   cursor: default;
 }
 
-.button, .text-input{
-  border: 0 none;
-  border-radius: 2px 2px 2px 2px;
+.button, .text-input {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
@@ -68,6 +67,8 @@ body {
 }
 
 .button {
+  border: 0 none;
+  border-radius: 2px 2px 2px 2px;
   -webkit-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
   -moz-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
 }
@@ -80,15 +81,11 @@ body {
 .button.save {
   background: none repeat scroll 0 0 #e0645c;
   color: white;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
 }
 
 .button.saved {
   background: none repeat scroll 0 0 #999999;
   color: white;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
 }
 
 #number {
@@ -97,24 +94,54 @@ body {
 
 #login {
   position: fixed;
-  top: 10%;
+  top: 2%;
   left: 30%;
   right: 30%;
   width: 40%;
   text-align: center;
 }
 
-#login ul {
-  padding-left: 0px;
-  list-style-type: none;
+#login form, #flash {
+  margin-bottom: 20px;
 }
 
-#logout {
+#nav {
   position: fixed;
   right: 10px;
-  top: 0px;
+  bottom: 10px;
+  z-index: 9999999999;
+  max-width: 300px;
+}
+
+#nav .button {
+  width: 275px;
+}
+
+.button-blue {
+  background: none repeat scroll 0 0 #14d7ff;
 }
 
 #title {
   font-size: 40px;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
+a {
+  color: #5fa1f9;
+}
+
+.images {
+  position: fixed;
+  right: 3%;
+  left: 3%;
+}
+
+.images img {
+  width: 24%;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(33,31,33,0.5);
+}
+
+a {
+  text-decoration: none;
 }

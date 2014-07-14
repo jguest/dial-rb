@@ -1,11 +1,9 @@
-#logout
-  %form{:action => "unset-number", :method => "post"}
-    %input{:class => "button", :type => "submit", :value => "logout"}
+#nav
+  %textarea{:id => 'prompt'}
+  #save-button.button.saved save
+  #logout-button.button.button-blue close
 
 %textarea{:id => 'code'}= @editor_text
-%textarea{:id => 'prompt'}
-
-#save-button.button.saved save
 
 #number= @number
 %script{:src => "/lib/codemirror/lib/codemirror.js", :type => 'text/javascript'}

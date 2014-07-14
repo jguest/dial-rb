@@ -4,28 +4,20 @@ $(function() {
     // evaluate function should have some line(s) changes to indicate eval
     // vim mode should be an option, I guess...
     // cleanup the keydown function. Those conditionals are nasty.
-    // prompt should copy value to clipboard (ZeroClipboard)
 
     // TODO style
-    // dig into base16-dark css and remove that goddamn cursor
-    // get css out of index.haml!
-    // open that markdown/login shit in the top right corner (icon for info if phone number cookied)
-    // dial-rb should probably be somewhere on the page
+    // revert to middle of page style
+    // small nav up top 
+    // keymap (shortcuts and vim/emacs) | donation | contribute | about
 
     // TODO ruby
-    // logout/exit feature to uncookie phone number
     // when returning an exception, remove the filename for the love of god.
     // work on that is_assignment method so comparison operators not considered assignment
-    // we're going to need a donation feature. ugh.
     // there needs to be some massive cleanup/organization.
     // Session might not be such a good class name due to sinatra sessions
 
     // TODO misc
-    // rename text-ruby directory to dial-rb
-    // git repo dude seriously
-    // push to heroku or rackspace slice
-    // get some people to do a beta
-    // facebook/reddit announcement. ugh.
+    // configure rackspace slice nginx and deploy v1
 
     var editor,
         prompt,
@@ -37,15 +29,14 @@ $(function() {
 	    mode: "text/x-ruby",
 	    vimMode: true,
 	    lineNumbers: true,
-	    theme: "base16-light",
+	    theme: "solarized light",
         autofocus: true
 	});
 
     prompt = CodeMirror.fromTextArea(document.getElementById("prompt"), {
 	    mode: "text/x-ruby",
 	    lineNumbers: false,
-	    theme: "base16-dark",
-        readOnly: true
+	    theme: "xq-light",
 	});
 
     editor.on("change", function() {
@@ -53,13 +44,22 @@ $(function() {
         $("#save-button").addClass("save");
     });
 
+    $("#logout-button").click(function() {
+        $.post("/unset-number")
+        .done(function(data) {
+            window.location = data.url
+        });
+    });
+
 	$(window).bind('keydown',function(e){
-	  if( lastKey && ((lastKey == 91 || lastKey == 17) && e.keyCode == 83) || (lastKey == 83 && (e.keyCode == 91 || e.keyCode == 17)) ){
+	  if(lastKey && ((lastKey == 91 || lastKey == 17) && e.keyCode == 83) 
+          || (lastKey == 83 && (e.keyCode == 91 || e.keyCode == 17))) {
 	    e.preventDefault();
         save();
 	    return false;
 	  }
-	  if( lastKey && ((lastKey == 91 || lastKey == 17) && e.keyCode == 13) || (lastKey == 13 && (e.keyCode == 91 || e.keyCode == 17)) ){
+	  if(lastKey && ((lastKey == 91 || lastKey == 17) && e.keyCode == 13) 
+          || (lastKey == 13 && (e.keyCode == 91 || e.keyCode == 17))) {
 	    e.preventDefault();
         evaluate()
 	    return false;
@@ -77,7 +77,7 @@ $(function() {
             .done(function(data) {
                 $("#save-button").removeClass("save")
                 $("#save-button").addClass("saved");
-                prompt.setValue("=> " + data.evaluation)
+                appendEval(data.evaluation);
             });
         }
     }
@@ -88,7 +88,19 @@ $(function() {
 
         $.get("/evaluate", {number: phone_number, code: to_eval} )
         .done(function(data) {
-            prompt.setValue("=> " + data.evaluation)
+            appendEval(data.evaluation);
         });
     }
-})
+
+    function appendEval(evaluation) {
+        var $promptScroll = $(".cm-s-xq-light .CodeMirror-scroll");
+
+        if (prompt.getValue() == "") {
+            prompt.setValue("\n\n\n\n\n\n\n\n\n\n\n\n")
+        }
+
+        $promptScroll.animate({ scrollTop: $promptScroll[0].scrollHeight}, 1000);
+        prompt.setValue(prompt.getValue() + "\n=> " + evaluation)
+    }
+
+});
