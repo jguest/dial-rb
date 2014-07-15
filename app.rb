@@ -3,62 +3,68 @@ require 'twilio-ruby'
 require 'sinatra'
 require 'json'
 require 'haml'
+require 'token_phrase'
 require_relative 'session'
+require_relative 'lib/sms'
 
 enable :sessions
 
 get '/sms-evaluate' do
     twiml = Twilio::TwiML::Response.new do |res|
-        session = Session.for(params[:From])
-        session.evaluate(params[:Body])
-        session.remember(params[:Body])
-        res.Message "=> #{session.evaluation}"
+        res.Message Session.for(params[:From]).evaluate(params[:Body], true)
     end
     twiml.text
 end
 
 get '/evaluate' do
-    session = Session.for(params[:number])
-    session.evaluate(params[:code])
     content_type :json
-    {:evaluation => session.evaluation}.to_json
+    {:evaluation => Session.for(params[:number]).evaluate(params[:code])}.to_json
+end
+
+post '/save' do
+    content_type :json
+    Session.for(params[:number]).save(params[:code])
+    {:evaluation => "code saved"}.to_json
 end
 
 get '/' do
     @number = session[:number]
-    if @number
-        @editor_text = Session.for(@number).file
+    if @number && session[:token]
+        @editor_text = Session.for(@number).file()
     else
         redirect to('/login')
     end
-    haml :index
-end
 
-post '/save' do
-    session = Session.for(params[:number])
-    session.save(params[:code])
-    content_type :json
-    {:evaluation => session.evaluation}.to_json
+    haml :index
 end
 
 get '/login' do
     @number = session[:number]
+    @error = params[:error] == 'true'
+
     haml :login
 end
 
 post '/authenticate' do
-    # DO STUFF TOMORROW
-    # random word auth
-    redirect to('/')
+    if params[:token] == session[:token]
+        redirect to('/')
+    end
+   
+    session.clear
+    redirect to('/login?error=true')
 end
 
 post '/set-number' do
     session[:number] = params[:number]
+    session[:token] = TokenPhrase.generate(' ', :numbers => false)
+
+    SMS.send(session[:number], session[:token])
     redirect to('/login')
 end
 
 post '/unset-number' do
-    session[:number] = nil
+    session.clear
+
     content_type :json
     {:url => "/login"}.to_json
 end

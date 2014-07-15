@@ -8,13 +8,7 @@
 
 **TODO js**
 * evaluate function should have some line(s) changes to indicate eval
-* vim mode should be an option, I guess...
 * cleanup the keydown function. Those conditionals are nasty.
-
-**TODO style**
-* revert to middle of page style
-* small nav up top 
-    * keymap (shortcuts and vim/emacs) | donation | contribute | about
 
 **TODO misc**
 * configure rackspace slice nginx

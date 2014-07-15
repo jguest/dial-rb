@@ -1,18 +1,20 @@
 #login
-  %span{:id => "title"} 
-    dialrb
-  %span{:id => "sub-title"}
-    <a href="http://en.wikipedia.org/wiki/Interactive_Ruby_Shell" target="_blank">IRB</a> for SMS with a twist
+  #app-name
+    %span{:id => "title"} dial-rb
+    %span{:id => "sub-title"}
+      <a href="http://en.wikipedia.org/wiki/Interactive_Ruby_Shell" target="_blank">IRB</a> for SMS with a twist
+  - if @error
+    #error sorry, let's retry that
   - if @number
     %form{:action => "authenticate", :method => "post"}
       %input{:id => "token-input", :class => "text-input", :name => "token", 
         :placeholder => "enter secret"}
-      %input{:class => "button", :type => "submit", :value => "login"}
-    #flash enter the super secret token sent to #{@number}
+      %input{:class => "button button-green", :type => "submit", :value => "login"}
+    #flash enter the super secret text sent to #{@number}
   - else
     %form{:action => "set-number", :method => "post"}
       %input{:id => "number-input", :class => "text-input", :name => "number", :value => "+1"}
-      %input{:class => "button", :type => "submit", :value => "submit phone number"}
+      %input{:class => "button button-blue", :type => "submit", :value => "submit phone number"}
     #flash entering your number will send you a secret text
   .images
     %img{:src => '/img/phone1.png'}

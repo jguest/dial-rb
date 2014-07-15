@@ -4,7 +4,7 @@ require_relative 'lib/ruby_string'
 class Session
 
     DIR = "sessions/"
-    attr_accessor :evaluation, :file
+    attr_accessor :evaluation
 
     def self.for(number)
         self.new(number)
@@ -13,51 +13,55 @@ class Session
     def initialize(number)
         @number = number[1..-1]
         @filename = "#{DIR}#{@number}.rb"
-        @client = _client
+        @mobile_filename = "#{DIR}sms-#{@number}.rb"
         @context = SessionContext.new({
             :number => @number,
-            :client => @client,
-            :filename => @filename
+            :filename => @mobile_filename
         })
-    end
-
-    def _client
-        Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
     end
 
     def save(contents)
         File.delete(@filename) if File.exists?(@filename)
         File.write(@filename, contents)
-        @evaluation = "code saved"
     end
 
-    def evaluate(message_body)
+    def evaluate(message_body, use_context = false)
+        evaluation = "=> "
         begin
-            @evaluation = eval_for(message_body).inspect
+            evaluation << eval_for(message_body, use_context).inspect
+            evaluation << "nil" if evaluation.empty?
             if (!@context.stdout.empty?)
-                @evaluation.insert(0, @context.stdout_str + " ")
-                @evaluation = @evaluation.gsub @context.stdout.to_s, ""
+                evaluation.insert(0, @context.stdout_str)
+                evaluation = evaluation.gsub(@context.stdout.to_s, "")
             end
-            @evaluation << "nil" if @evaluation.empty?
+            remember(message_body) if use_context
         rescue Exception => e
-            @evaluation = e.inspect
+            evaluation <<  e.inspect
         end
+        evaluation
     end
 
-    def eval_for(message_body)
-        eval_string = RubyString.replace_puts((file || "") + "\n#{message_body}")
+    def eval_for(message_body, use_context)
+        context = if use_context then all_files() else "" end
+        eval_string = RubyString.replace_stdout(context + "\n#{message_body}")
         eval(eval_string, @context.get_binding)
     end
 
-    def file
-        return File.read(@filename) if File.exists?(@filename)
+    def file()
+        if File.exists?(@filename) then File.read(@filename) else "" end
+    end
+
+    def mobile_file()
+        if File.exists?(@mobile_filename) then File.read(@mobile_filename) else "" end
+    end
+
+    def all_files()
+        file() + "\n" + mobile_file()
     end
 
     def remember(message_body)
-        if RubyString.new(message_body).definition_or_assignment?
-            File.open(@filename, 'a+') do |f|
-                f << "\n#{message_body}"
-            end
+        File.open(@mobile_filename, 'a+') do |f|
+            f << "\n\n#{message_body}"
         end
     end
 

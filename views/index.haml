@@ -1,12 +1,24 @@
+%span#menu-in
+%span.menu#menu-left
+  %span= @number
+%span.menu#menu-right
+  %span#keymap
+    %a#keymap-change keymap
+    %span#keymap-selected sublime
+  %a{:href => "https://github.com/jguest/dial-rb", :target => "_blank"} contribute
+  %a{:href => "https://www.gittip.com/jguest/", :target => "_blank"} donate
+  %a#close close
 #nav
   %textarea{:id => 'prompt'}
   #save-button.button.saved save
-  #logout-button.button.button-blue close
+  #run-button.button.button-blue run
 
 %textarea{:id => 'code'}= @editor_text
 
 #number= @number
 %script{:src => "/lib/codemirror/lib/codemirror.js", :type => 'text/javascript'}
 %script{:src => "/lib/codemirror/mode/ruby/ruby.js", :type => 'text/javascript'}
+%script{:src => "/lib/codemirror/keymap/sublime.js", :type => 'text/javascript'}
 %script{:src => "/lib/codemirror/keymap/vim.js", :type => 'text/javascript'}
+%script{:src => "/lib/codemirror/keymap/emacs.js", :type => 'text/javascript'}
 %script{:src => '/js/index.js', :type => 'text/javascript'}

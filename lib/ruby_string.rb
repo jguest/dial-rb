@@ -3,7 +3,7 @@ class RubyString
     KEYWORDS = %w(def class module)
     ASSIGNMENT = "="
 
-    def self.replace_puts(code)
+    def self.replace_stdout(code)
         code.gsub 'puts', "@stdout <<"
     end
 
@@ -11,18 +11,17 @@ class RubyString
         @code = code
     end
 
-    def definition_or_assignment?
-        is_definition() or is_assignment()
-    end
+    # TODO sanatize input ENV, File, etc.
+    # TODO methods below not in use
 
-    def is_definition()
+    def definition?
         KEYWORDS.each do |word|
             return true if @code.start_with? word
         end
         false
     end
 
-    def is_assignment()
+    def assignment?
         @code.count(ASSIGNMENT) > @code.scan(/"([^""]*)"/).length
     end
 
