@@ -13,8 +13,7 @@ language would be in my pocket everywhere I go. The possibilies! Oh my.
 I thought a little bit more about how I could make this dream come true. A typical SMS interface
 on smart phone stores a conversation thread which has a typical flow of send->recieve (∞). Sounds 
 pretty similar to a read-eval-print loop, right? Ruby's built in REPL is called IRB and it is 
-an amazingly useful tool for learning the language at any level and an incredibly fun ruby sandbox
-environment if you know what you're doing. 
+an amazingly useful tool for learning the language at any level and an incredibly fun sandbox environment.
 
 IRB over SMS just made sense in my head. One problem though: if my original goal was to have mini
 programs at my fingertips to do those things I didn't want to do on my own (mental math, ugh. open 
@@ -25,7 +24,7 @@ but remained long after I *exited* my SMS IRB session.
 
 So the web editor idea became a thing. I worked on it for a few days straight with virtually no 
 sleep and at the end of it all, it just felt right to me. I was defining functions, classes and 
-modules that did some neat at home, in the browser, and using them in a conversation thread on my 
+modules that did some neat things at home in the browser, and using them in a conversation thread on my 
 iPhone. And here it is. I never really planned to share this anyone but after I saw it working, I 
 couldn't *not* share. 
 
@@ -42,10 +41,10 @@ about. Submit a pull request for any changes.
 
 ### Donate
 
-Like all wonderful things in life, **dial-rb** has a cost. It's like a fraction of a fraction of cent 
+Like all wonderful things in life, **dial-rb** has a cost. It's like a fraction of a fraction of a cent 
 per text and obviously, keeping my server alive has some overhead. That stuff adds up but I don't want 
 to charge anyone for what should be free. If you feel up for it, even 10 cents would help keep this  
-thing alive -- more information [here](https://www.gittip.com/jguest/).
+thing alive. More information [here](https://www.gittip.com/jguest/).
 
 ### TODO ideas
 * when returning an exception, remove the filename
