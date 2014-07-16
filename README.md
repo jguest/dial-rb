@@ -36,9 +36,9 @@ skills in a creative way. On that note, write some code, have fun and don't kill
 
 If you have written some badass code for yourself and you think everyone should be able to use it, 
 you'll need to clone this repo and put your stuff in `user_lib/`. Actual method definitions have to 
-be in `user_lib/available_methods`. Or just work on the actual app if you want to. There's a big pile 
-of todos and I'm sure there are some bugs. Probably even features I haven't thought about. Submit a 
-pull request for any changes.
+be in `user_lib/available_methods.rb` (or included). Or just work on the actual app if you want to. 
+There's a big pile of todos and I'm sure there are some bugs. Probably even features I haven't thought 
+about. Submit a pull request for any changes.
 
 ### Donate
 
@@ -53,4 +53,4 @@ thing alive -- more information [here](https://www.gittip.com/jguest/).
 * js - cleanup the keydown function. Those conditionals are nasty.
 * separate git repo for codemirror-fork and remove from project
 * YARD documentation server for user lib
-* on save, optionally validate code with some kind of ruby lint thing
+* optionally validate code with some kind of ruby lint thing
