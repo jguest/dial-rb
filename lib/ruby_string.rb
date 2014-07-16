@@ -1,21 +1,39 @@
 class RubyString
 
-    KEYWORDS = %w(def class module)
+    OFF_LIMITS = %w(File IO sleep Kernal ENV sessions)
+    STDOUT = %w(puts putc print printf)
+    ENCAPS = %w(def class module)
     ASSIGNMENT = "="
 
-    def self.replace_stdout(code)
-        code.gsub 'puts', "@stdout <<"
-    end
-
     def initialize(code)
-        @code = code
+        @code = code.dup
     end
 
-    # TODO sanatize input ENV, File, etc.
-    # TODO methods below not in use
+    def prepare()
+        check_hacks()
+        replace_stdout()
+        @code
+    end
 
-    def definition?
-        KEYWORDS.each do |word|
+    def replace_stdout()
+        STDOUT.each do |func|
+            @code = @code.gsub func, "@stdout << "
+        end
+    end
+
+    def check_hacks()
+        OFF_LIMITS.each do |badword|
+            if @code.include? badword
+                raise 'I will find you and I will kill you.'
+            end
+        end
+    end
+
+
+    # note: methods below not currently in use
+
+    def encapsulation?
+        ENCAPS.each do |word|
             return true if @code.start_with? word
         end
         false

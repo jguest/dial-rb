@@ -1,12 +1,11 @@
-require_relative 'session_context'
-require_relative 'lib/ruby_string'
+require_relative 'eval_context'
+require_relative '../lib/ruby_string'
 
-class Session
+class Evaluator
 
     DIR = "sessions/"
-    attr_accessor :evaluation
 
-    def self.for(number)
+    def self.with(number)
         self.new(number)
     end
 
@@ -14,41 +13,51 @@ class Session
         @number = number[1..-1]
         @filename = "#{DIR}#{@number}.rb"
         @mobile_filename = "#{DIR}sms-#{@number}.rb"
-        @context = SessionContext.new({
-            :number => @number,
-            :filename => @mobile_filename
-        })
+        @context = EvalContext.new(@mobile_filename)
     end
 
-    def save(contents)
-        File.delete(@filename) if File.exists?(@filename)
+    def store(contents)
+        [@filename, @mobile_filename].each do |f|
+            File.delete(f) if File.exists?(f)
+        end
         File.write(@filename, contents)
     end
 
     def evaluate(message_body, use_context = false)
-        evaluation = "=> "
+        evaluation = String.new
+
         begin
-            evaluation << eval_for(message_body, use_context).inspect
-            evaluation << "nil" if evaluation.empty?
+            evaluation << eval_for(RubyString.new(message_body), use_context).inspect
             if (!@context.stdout.empty?)
-                evaluation.insert(0, @context.stdout_str)
                 evaluation = evaluation.gsub(@context.stdout.to_s, "")
             end
+
+            evaluation << "nil" if evaluation.empty?
             remember(message_body) if use_context
+
         rescue Exception => e
             evaluation <<  e.inspect
         end
-        evaluation
+
+        @context.stdout_str + "=> " + evaluation
     end
 
-    def eval_for(message_body, use_context)
-        context = if use_context then all_files() else "" end
-        eval_string = RubyString.replace_stdout(context + "\n#{message_body}")
-        eval(eval_string, @context.get_binding)
+    def eval_for(ruby_string, use_context)
+        to_eval = ruby_string.prepare()
+
+        if use_context
+            to_eval = "#{all_files}\n#{to_eval}"
+        end
+
+        eval(to_eval, @context.get_binding)
     end
 
     def file()
-        if File.exists?(@filename) then File.read(@filename) else "" end
+        if File.exists?(@filename)
+            File.read(@filename)
+        else
+            File.read(DIR + "preview.rb")
+        end
     end
 
     def mobile_file()
@@ -61,7 +70,7 @@ class Session
 
     def remember(message_body)
         File.open(@mobile_filename, 'a+') do |f|
-            f << "\n\n#{message_body}"
+            f << "#{message_body}\n"
         end
     end
 

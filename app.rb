@@ -4,33 +4,40 @@ require 'sinatra'
 require 'json'
 require 'haml'
 require 'token_phrase'
-require_relative 'session'
+require_relative 'eval/evaluator'
 require_relative 'lib/sms'
+require_relative 'lib/json_lib'
+
+include JSONLib
+default_key(:evaluation)
 
 enable :sessions
+set :session_secret, ENV['DIALRB_SESSION_SECRET']
 
 get '/sms-evaluate' do
     twiml = Twilio::TwiML::Response.new do |res|
-        res.Message Session.for(params[:From]).evaluate(params[:Body], true)
+        res.Message Evaluator.with(params[:From]).evaluate(params[:Body], true)
     end
+
     twiml.text
 end
 
 get '/evaluate' do
     content_type :json
-    {:evaluation => Session.for(params[:number]).evaluate(params[:code])}.to_json
+    wrap Evaluator.with(params[:number]).evaluate(params[:code])
 end
 
 post '/save' do
+    Evaluator.with(params[:number]).store(params[:code])
+
     content_type :json
-    Session.for(params[:number]).save(params[:code])
-    {:evaluation => "code saved"}.to_json
+    wrap "code saved"
 end
 
 get '/' do
     @number = session[:number]
     if @number && session[:token]
-        @editor_text = Session.for(@number).file()
+        @editor_text = Evaluator.with(@number).file()
     else
         redirect to('/login')
     end
@@ -63,8 +70,7 @@ post '/set-number' do
 end
 
 post '/unset-number' do
-    session.clear
-
     content_type :json
-    {:url => "/login"}.to_json
+    session.clear
+    wrap "/login", :url
 end
