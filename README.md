@@ -26,7 +26,7 @@ So the web editor idea became a thing. I worked on it for a few days straight wi
 sleep and at the end of it all, it just felt right to me. I was defining functions, classes and 
 modules that did some neat things at home in the browser, and using them in a conversation thread on my 
 iPhone. And here it is. I never really planned to share this anyone but after I saw it working, I 
-couldn't *not* share. On that note, write some code, have fun and don't kill my server.
+couldn't *not* share.
 
 ### Contribute
 
