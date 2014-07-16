@@ -43,8 +43,8 @@ about. Submit a pull request for any changes.
 
 Like all wonderful things in life, **dial-rb** has a cost. It's like a fraction of a fraction of a cent 
 per text and obviously, keeping my server alive has some overhead. That stuff adds up but I don't want 
-to charge anyone for what should be free. If you feel up for it, even 10 cents would help keep this  
-thing alive. More information [here](https://www.gittip.com/jguest/).
+to charge anyone for what should be free. If you feel up for it, even 10 cents would help keep this thing alive. 
+More information [here](https://www.gittip.com/jguest/).
 
 ### TODO ideas
 * when returning an exception, remove the filename
