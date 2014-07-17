@@ -1,4 +1,4 @@
-## dial-rb
+## [dial-rb](http://dial-rb.com)
 
 ### About
 

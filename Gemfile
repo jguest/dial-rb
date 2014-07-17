@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+gem 'rack'
+gem 'sinatra'
+gem 'twilio-ruby'
+gem 'haml'
+gem 'redcarpet'
+gem 'token_phrase'
