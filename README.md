@@ -1,6 +1,6 @@
-## [dial-rb](http://dial-rb.com)
+## dial-rb
 
-### About
+Note: [dial-rb.com](http://dial-rb.com) is currently down but feel free to clone/fork and run it locally.
 
 This project started out of pure laziness. I wanted a way to do mundane, day-to-day things like
 calculate a tip, lookup words in a dictionary, or simply generate some repeating text to spam 
@@ -31,19 +31,13 @@ couldn't *not* share.
 ### Contribute
 
 If you have written some badass code for yourself and you think everyone should be able to use it, 
-you'll need to clone this repo and put your stuff in `user_lib/`. Actual method definitions have to 
+you'll need to fork this repo and put your stuff in `user_lib/`. Actual method definitions have to 
 be in `user_lib/available_methods.rb` (or included). Or just work on the actual app if you want to. 
 There's a big pile of todos and I'm sure there are some bugs. Probably even features I haven't thought 
 about. Submit a pull request for any changes.
 
-### Donate
-
-Like all wonderful things in life, **dial-rb** has a cost. It's like a fraction of a fraction of a cent 
-per text and obviously, keeping my server alive has some overhead. That stuff adds up but I don't want 
-to charge anyone for what should be free. If you feel up for it, even 10 cents would help keep this thing alive. 
-More information [here](https://www.gittip.com/jguest/).
-
 ### TODO ideas
+
 * when returning an exception, remove the filename
 * link to ruby docs
 * js - cleanup the keydown function. Those conditionals are nasty.
